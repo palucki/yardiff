@@ -10,11 +10,11 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(test_signatures test_strongChecksum.cpp test_rollingChecksum.cpp)
+add_executable(test_checksums test_strongChecksum.cpp test_rollingChecksum.cpp)
 
-target_link_libraries(test_signatures
+target_link_libraries(test_checksums
  PRIVATE
   GTest::GTest
   yardifflib)
 
-add_test(yardiff_gtests test_signatures)
+add_test(yardiff_gtests test_checksums)

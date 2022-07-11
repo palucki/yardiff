@@ -4,10 +4,9 @@
 #include <QByteArray>
 #include <QString>
 
-std::string StrongChecksum::calculate(const std::string &input)
+std::vector<unsigned char> StrongChecksum::calculate(const std::vector<unsigned char>& input)
 {
-    const QByteArray input_array{input.c_str(), static_cast<int>(input.size())};
+    const QByteArray input_array{reinterpret_cast<const char*>(input.data()), static_cast<int>(input.size())};
     const auto byte_data = QCryptographicHash::hash(input_array, QCryptographicHash::Md4);
-    const QString str = byte_data.toHex();
-    return str.toStdString();
+    return std::vector<unsigned char>(byte_data.constData(), byte_data.constEnd());
 }

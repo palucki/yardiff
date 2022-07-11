@@ -22,8 +22,18 @@ TEST(StrongChecksum, Md4TestVectors)
     //may use parametrized tests (data-driven) as well, left as is for simplicity
     for(const auto& input_expectation_pair : data)
     {
-        const auto strong_signature = StrongChecksum::calculate(input_expectation_pair.first);
-        EXPECT_EQ(strong_signature.size(), input_expectation_pair.second.size());
-        EXPECT_EQ(strong_signature, input_expectation_pair.second);
+        const auto input_string = input_expectation_pair.first;
+        const auto expected_string = input_expectation_pair.second;
+        const std::vector<unsigned char> input{input_string.cbegin(), input_string.cend()};
+
+        const auto strong_signature = StrongChecksum::calculate(input);
+        std::string output;
+        for(const int o : strong_signature)
+        {
+            std::stringstream ss;
+            ss << std::hex << std::setw(2) << std::setfill('0') << o;
+            output += ss.str();
+        }
+        EXPECT_EQ(output, expected_string);
     }
 }

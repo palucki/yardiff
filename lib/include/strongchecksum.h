@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <vector>
 
 /*!
  * \brief The StrongChecksum class implements MD4 hash function
@@ -10,5 +10,5 @@
 class StrongChecksum
 {
 public:
-    static std::string calculate(const std::string& input);
+    static std::vector<unsigned char> calculate(const std::vector<unsigned char>& input);
 };
