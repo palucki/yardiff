@@ -10,17 +10,14 @@
 class RollingChecksum
 {
 public:
-    RollingChecksum(const std::vector<unsigned char>& data, const int block_size, const int factor);
+    RollingChecksum(const std::vector<unsigned char>& data, const int factor);
 
-    void roll();
+    long long roll(const unsigned char outgoing, const unsigned char incoming);
 
-    long long currentValue();
+    long long value();
 private:
-    const std::vector<unsigned char> m_input;
     const int m_block_size;
     const int m_factor;
-
-    unsigned int m_current_pos = 0;
 
     long long m_r = 0;
     long long m_r1 = 0;

@@ -1,20 +1,13 @@
 #include "rollingchecksum.h"
 
-
-RollingChecksum::RollingChecksum(const std::vector<unsigned char> &data, const int block_size, const int factor)
-    : m_input(data),
-      m_block_size(block_size),
+RollingChecksum::RollingChecksum(const std::vector<unsigned char> &data, const int factor)
+    : m_block_size(data.size()),
       m_factor(factor)
 {
-    if(block_size > m_input.size())
+    for(int i = 0; i < data.size(); ++i)
     {
-        return;
-    }
-
-    for(int i = 0; i < block_size; ++i)
-    {
-        m_r1 += m_input[i];
-        m_r2 += (m_block_size - i) * m_input[i];
+        m_r1 += data[i];
+        m_r2 += (m_block_size - i) * data[i];
     }
 
     m_r1 = m_r1 % m_factor;
@@ -22,26 +15,16 @@ RollingChecksum::RollingChecksum(const std::vector<unsigned char> &data, const i
     m_r = m_r1 + m_factor * m_r2;
 }
 
-void RollingChecksum::roll()
+long long RollingChecksum::roll(const unsigned char outgoing, const unsigned char incoming)
 {
-    const int end_index = m_current_pos + m_block_size;
-    if(end_index >= m_input.size())
-    {
-        return;
-    }
-
-    const auto outgoing_element = m_input[m_current_pos];
-    const auto incoming_element = m_input[m_current_pos + m_block_size];
-
-    ++m_current_pos;
-
-    m_r1 = (m_r1 - outgoing_element + incoming_element) % m_factor;
-    m_r2 = (m_r2 - m_block_size * outgoing_element + m_r1) % m_factor;
+    m_r1 = (m_r1 - outgoing + incoming) % m_factor;
+    m_r2 = (m_r2 - m_block_size * outgoing + m_r1) % m_factor;
     m_r = m_r1 + m_factor * m_r2;
 
+    return m_r;
 }
 
-long long RollingChecksum::currentValue()
+long long RollingChecksum::value()
 {
     return m_r;
 }
