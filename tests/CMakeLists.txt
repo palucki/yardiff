@@ -10,7 +10,7 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(test_signatures test_strongSignature.cpp)
+add_executable(test_signatures test_strongChecksum.cpp test_rollingChecksum.cpp)
 
 target_link_libraries(test_signatures
  PRIVATE

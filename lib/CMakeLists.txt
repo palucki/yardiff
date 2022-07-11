@@ -1,13 +1,13 @@
+#required for MD4 implementation
 find_package(Qt5 REQUIRED COMPONENTS Core)
 
 set(HEADERS
-    include/fastsignature.h
-    include/strongsignature.h)
+    include/rollingchecksum.h
+    include/strongchecksum.h)
 
 set(SOURCES
-    yardiff.cpp
-    fastsignature.cpp
-    strongsignature.cpp)
+    rollingchecksum.cpp
+    strongchecksum.cpp)
 
 add_library(yardifflib ${HEADERS} ${SOURCES})
 

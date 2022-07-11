@@ -1,11 +1,10 @@
 #include <list>
 #include <gtest/gtest.h>
 
-#include "fastsignature.h"
-#include "strongsignature.h"
+#include "strongchecksum.h"
 
 // See https://en.wikipedia.org/wiki/MD4
-TEST(StrongSignature, Md4TestVectors)
+TEST(StrongChecksum, Md4TestVectors)
 {
     std::list<std::pair<std::string, std::string>> data {
         {"The quick brown fox jumps over the lazy dog", "1bee69a46ba811185c194762abaeae90"},
@@ -23,7 +22,7 @@ TEST(StrongSignature, Md4TestVectors)
     //may use parametrized tests (data-driven) as well, left as is for simplicity
     for(const auto& input_expectation_pair : data)
     {
-        const auto strong_signature = StrongSignature::signature(input_expectation_pair.first);
+        const auto strong_signature = StrongChecksum::calculate(input_expectation_pair.first);
         EXPECT_EQ(strong_signature.size(), input_expectation_pair.second.size());
         EXPECT_EQ(strong_signature, input_expectation_pair.second);
     }
