@@ -5,7 +5,6 @@
 
 #include "strongchecksum.h"
 #include "rollingchecksum.h"
-#include "utils.h"
 
 int main()
 {
@@ -56,8 +55,8 @@ int main()
         RollingChecksum r(buffer, 1 << 16);
         const auto fast_signature = r.value();
 
-        std::cout << "block index: " << block_index++ << " - " << succesfully_read_bytes << " bytes\n";
-        std::cout << "strong checksum (MD4): " << utils::bytesToHex(strong_signature) << '\n';
+        std::cout << "block index: " << block_index << " - " << succesfully_read_bytes << " bytes\n";
+        std::cout << "strong checksum (MD4): " << strong_signature << '\n';
         std::cout << "rolling checksum: " << fast_signature << '\n';
 
         if(fast_strong_signature_map.find(fast_signature) != fast_strong_signature_map.end())
@@ -66,7 +65,8 @@ int main()
             continue;
         }
 
-        fast_strong_signature_map[fast_signature] = {utils::bytesToHex(strong_signature), block_index};
+        fast_strong_signature_map[fast_signature] = {strong_signature, block_index};
+        ++block_index;
     }
 
     std::cout << "=============== UPDATED FILE =================\n";
