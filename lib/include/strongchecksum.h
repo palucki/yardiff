@@ -10,5 +10,5 @@
 class StrongChecksum
 {
 public:
-    static std::vector<unsigned char> calculate(const std::vector<unsigned char>& input);
+    static std::vector<unsigned char> calculate(const std::vector<unsigned char> &input);
 };

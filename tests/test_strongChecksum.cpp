@@ -1,6 +1,7 @@
 #include <list>
 #include <gtest/gtest.h>
 
+#include "utils.h"
 #include "strongchecksum.h"
 
 // See https://en.wikipedia.org/wiki/MD4
@@ -27,13 +28,8 @@ TEST(StrongChecksum, Md4TestVectors)
         const std::vector<unsigned char> input{input_string.cbegin(), input_string.cend()};
 
         const auto strong_signature = StrongChecksum::calculate(input);
-        std::string output;
-        for(const int o : strong_signature)
-        {
-            std::stringstream ss;
-            ss << std::hex << std::setw(2) << std::setfill('0') << o;
-            output += ss.str();
-        }
+        std::string output = utils::bytesToHex(strong_signature);
+
         EXPECT_EQ(output, expected_string);
     }
 }
