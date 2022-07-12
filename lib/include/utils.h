@@ -8,12 +8,14 @@
 namespace utils
 {
 
-std::string bytesToHex(const std::vector<unsigned char>& data)
+template<typename T>
+std::string bytesToHex(const T& data)
 {
     std::stringstream ss;
-    for(unsigned int d : data)
+    for(const auto d : data)
     {
-        ss << std::hex << std::setw(2) << std::setfill('0') << d;
+        //the little '+' fellow does the trick to print char as value, instead of character
+        ss << std::hex << std::setw(2) << std::setfill('0') << +(unsigned char)d;
     }
     return ss.str();
 }
