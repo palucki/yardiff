@@ -11,16 +11,17 @@
 class RollingChecksum
 {
 public:
-    RollingChecksum(const std::vector<unsigned char>& data, const int factor);
+    RollingChecksum(const int factor);
+
+    //! Recomputes the checksum for the whole new block of data.
+    //! Updates the block_size property.
+    long long calculate(const std::vector<unsigned char>& data);
 
     //! Recomputes the checksum discarding outgoing and including incoming bytes, returns computed checksum
     long long roll(const unsigned char outgoing, const unsigned char incoming);
-
-    //! Getter for current checksum value
-    long long value();
 private:
-    const int m_block_size;
     const int m_factor;
+    int m_block_size = 0;
 
     long long m_r = 0;
     long long m_r1 = 0;

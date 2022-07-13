@@ -1,9 +1,17 @@
 #include "rollingchecksum.h"
 
-RollingChecksum::RollingChecksum(const std::vector<unsigned char> &data, const int factor)
-    : m_block_size(data.size()),
-      m_factor(factor)
+RollingChecksum::RollingChecksum(const int factor)
+    : m_factor(factor)
 {
+}
+
+long long RollingChecksum::calculate(const std::vector<unsigned char> &data)
+{
+    m_r = 0;
+    m_r1 = 0;
+    m_r2 = 0;
+    m_block_size = data.size();
+
     for(int i = 0; i < data.size(); ++i)
     {
         m_r1 += data[i];
@@ -13,6 +21,8 @@ RollingChecksum::RollingChecksum(const std::vector<unsigned char> &data, const i
     m_r1 = m_r1 % m_factor;
     m_r2 = m_r2 % m_factor;
     m_r = m_r1 + m_factor * m_r2;
+
+    return m_r;
 }
 
 long long RollingChecksum::roll(const unsigned char outgoing, const unsigned char incoming)
@@ -23,10 +33,4 @@ long long RollingChecksum::roll(const unsigned char outgoing, const unsigned cha
 
     return m_r;
 }
-
-long long RollingChecksum::value()
-{
-    return m_r;
-}
-
 

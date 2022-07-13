@@ -11,9 +11,9 @@ const int MODULO_FACTOR = 1 << 16;
 TEST(RollingChecksum, TestBiggerNumbers)
 {
     {
+        RollingChecksum checksum( MODULO_FACTOR);
         std::vector<unsigned char> data{100, 200, 123, 124, 213, 76, 127, 201, 12, 19, 99};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 573965582);
+        EXPECT_EQ(checksum.calculate(data), 573965582);
         EXPECT_EQ(checksum.roll(data[0], 213), 594085247);
         EXPECT_EQ(checksum.roll(data[1], 177), 540607848);
         EXPECT_EQ(checksum.roll(data[2], 203), 547882424);
@@ -27,65 +27,58 @@ TEST(RollingChecksum, TestBiggerNumbers)
 TEST(RollingChecksum, TestRolling)
 {
     {
+        RollingChecksum checksum(MODULO_FACTOR);
         std::vector<unsigned char> data{10, 20, 30};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 6553660);
-        checksum.roll(10, 40);
-        EXPECT_EQ(checksum.value(), 10485850);
-        checksum.roll(20, 50);
-        EXPECT_EQ(checksum.value(), 14418040);
-        checksum.roll(30, 60);
-        EXPECT_EQ(checksum.value(), 18350230);
+        EXPECT_EQ(checksum.calculate(data), 6553660);
+        EXPECT_EQ(checksum.roll(10, 40), 10485850);
+        EXPECT_EQ(checksum.roll(20, 50), 14418040);
+        EXPECT_EQ(checksum.roll(30, 60), 18350230);
     }
 }
 
 TEST(RollingChecksum, TestRollingOut)
 {
     {
+        RollingChecksum checksum(MODULO_FACTOR);
         std::vector<unsigned char> data{0, 1, 2};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 262147);
-        checksum.roll(0, 0);
-        EXPECT_EQ(checksum.value(), 458755);
-        checksum.roll(1, 1);
-        EXPECT_EQ(checksum.value(), 458755); //rolling 1 - 1 is a identity operation
-        checksum.roll(2, 2);
-        EXPECT_EQ(checksum.value(), 262147); //back to initial value
+        EXPECT_EQ(checksum.calculate(data), 262147);
+        EXPECT_EQ(checksum.roll(0, 0), 458755);
+        EXPECT_EQ(checksum.roll(1, 1), 458755); //rolling 1 - 1 is a identity operation
+        EXPECT_EQ(checksum.roll(2, 2), 262147); //back to initial value
     }
 }
 
 TEST(RollingChecksum, TestMultipleByteInputs)
 {
     {
+        RollingChecksum checksum(MODULO_FACTOR);
         std::vector<unsigned char> data{0, 1};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 65537);
+        EXPECT_EQ(checksum.calculate(data), 65537);
     }
 
     {
+        RollingChecksum checksum(MODULO_FACTOR);
         std::vector<unsigned char> data{10, 10, 10, 10};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 6553640);
+        EXPECT_EQ(checksum.calculate(data), 6553640);
     }
 }
 
 TEST(RollingChecksum, TestSingleByteInput)
 {
+    RollingChecksum checksum(MODULO_FACTOR);
+
     {
         std::vector<unsigned char> data{0};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 0);
+        EXPECT_EQ(checksum.calculate(data), 0);
     }
 
     {
         std::vector<unsigned char> data{100};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 6553700);
+        EXPECT_EQ(checksum.calculate(data), 6553700);
     }
 
     {
         std::vector<unsigned char> data{0xFF};
-        RollingChecksum checksum(data, MODULO_FACTOR);
-        EXPECT_EQ(checksum.value(), 16711935);
+        EXPECT_EQ(checksum.calculate(data), 16711935);
     }
 }
