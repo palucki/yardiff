@@ -3,11 +3,14 @@ find_package(Qt5 REQUIRED COMPONENTS Core)
 
 set(HEADERS
     include/rollingchecksum.h
-    include/strongchecksum.h)
+    include/strongchecksum.h
+    include/dataprovider.h
+    include/filedataprovider.h)
 
 set(SOURCES
     rollingchecksum.cpp
-    strongchecksum.cpp)
+    strongchecksum.cpp
+    filedataprovider.cpp)
 
 add_library(yardifflib ${HEADERS} ${SOURCES})
 
