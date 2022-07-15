@@ -1,4 +1,3 @@
-#include <list>
 #include <gtest/gtest.h>
 
 #include "rollingchecksum.h"

@@ -11,10 +11,7 @@ add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
 add_executable(test_checksums test_strongChecksum.cpp test_rollingChecksum.cpp)
+target_link_libraries(test_checksums PRIVATE GTest::GTest yardifflib)
 
-target_link_libraries(test_checksums
- PRIVATE
-  GTest::GTest
-  yardifflib)
-
-add_test(yardiff_gtests test_checksums)
+add_executable(test_signature_calculator test_signatureCalculator.cpp)
+target_link_libraries(test_signature_calculator PRIVATE GTest::GTest yardifflib)

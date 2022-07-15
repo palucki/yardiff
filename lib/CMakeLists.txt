@@ -6,12 +6,15 @@ set(HEADERS
     include/strongchecksum.h
     include/dataprovider.h
     include/filedataprovider.h
-    include/mockdataprovider.h)
+    include/mockdataprovider.h
+    include/signaturecalculator.h
+    include/signature.h)
 
 set(SOURCES
     rollingchecksum.cpp
     strongchecksum.cpp
-    filedataprovider.cpp)
+    filedataprovider.cpp
+    signaturecalculator.cpp)
 
 add_library(yardifflib ${HEADERS} ${SOURCES})
 
