@@ -5,7 +5,8 @@ set(HEADERS
     include/rollingchecksum.h
     include/strongchecksum.h
     include/dataprovider.h
-    include/filedataprovider.h)
+    include/filedataprovider.h
+    include/mockdataprovider.h)
 
 set(SOURCES
     rollingchecksum.cpp

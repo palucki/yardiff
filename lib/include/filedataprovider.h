@@ -13,7 +13,7 @@ public:
     FileDataProvider(std::ifstream& file_handle, int buffer_size);
     bool readData() override;
 
-    virtual std::vector<unsigned char>& data() override;
+    std::vector<unsigned char>& data() override;
 
     bool finished() override;
 
