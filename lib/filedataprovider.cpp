@@ -31,6 +31,12 @@ bool FileDataProvider::readData()
     return true;
 }
 
+void FileDataProvider::setReadPosition(long position_from_start)
+{
+    m_file_handle.clear();
+    m_file_handle.seekg(position_from_start, std::ios::beg);
+}
+
 std::vector<unsigned char> &FileDataProvider::data()
 {
     return m_buffer;

@@ -59,6 +59,11 @@ public:
         return true;
     }
 
+    void setReadPosition(long position_from_start)
+    {
+
+    }
+
     std::vector<unsigned char>& data() override
     {
         return m_buffer;

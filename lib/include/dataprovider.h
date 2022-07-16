@@ -17,5 +17,7 @@ public:
     //! returns data container
     virtual std::vector<unsigned char>& data() = 0;
 
+    virtual void setReadPosition(long position_from_start) = 0;
+
     virtual bool finished() = 0;
 };

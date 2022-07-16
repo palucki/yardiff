@@ -11,7 +11,6 @@ SignatureCalculator::SignatureCalculator(DataProvider &data_provider, const int 
 {
 }
 
-
 const Signature& SignatureCalculator::calculate()
 {
     auto block_index = 0;
@@ -19,7 +18,7 @@ const Signature& SignatureCalculator::calculate()
     {
         if(!m_data_provider.readData())
         {
-            std::cout << "No more data in buffer data\n";
+            std::cout << "No more data in buffer\n";
             continue;
         }
 
