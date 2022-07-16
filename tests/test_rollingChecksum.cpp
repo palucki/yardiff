@@ -10,7 +10,7 @@ const int MODULO_FACTOR = 1 << 16;
 TEST(RollingChecksum, TestBiggerNumbers)
 {
     {
-        RollingChecksum checksum( MODULO_FACTOR);
+        RollingChecksum checksum;
         std::vector<unsigned char> data{100, 200, 123, 124, 213, 76, 127, 201, 12, 19, 99};
         EXPECT_EQ(checksum.calculate(data), 573965582);
         EXPECT_EQ(checksum.roll(data[0], 213), 594085247);
@@ -26,7 +26,7 @@ TEST(RollingChecksum, TestBiggerNumbers)
 TEST(RollingChecksum, TestRolling)
 {
     {
-        RollingChecksum checksum(MODULO_FACTOR);
+        RollingChecksum checksum;
         std::vector<unsigned char> data{10, 20, 30};
         EXPECT_EQ(checksum.calculate(data), 6553660);
         EXPECT_EQ(checksum.roll(10, 40), 10485850);
@@ -38,7 +38,7 @@ TEST(RollingChecksum, TestRolling)
 TEST(RollingChecksum, TestRollingOut)
 {
     {
-        RollingChecksum checksum(MODULO_FACTOR);
+        RollingChecksum checksum;
         std::vector<unsigned char> data{0, 1, 2};
         EXPECT_EQ(checksum.calculate(data), 262147);
         EXPECT_EQ(checksum.roll(0, 0), 458755);
@@ -50,13 +50,13 @@ TEST(RollingChecksum, TestRollingOut)
 TEST(RollingChecksum, TestMultipleByteInputs)
 {
     {
-        RollingChecksum checksum(MODULO_FACTOR);
+        RollingChecksum checksum;
         std::vector<unsigned char> data{0, 1};
         EXPECT_EQ(checksum.calculate(data), 65537);
     }
 
     {
-        RollingChecksum checksum(MODULO_FACTOR);
+        RollingChecksum checksum;
         std::vector<unsigned char> data{10, 10, 10, 10};
         EXPECT_EQ(checksum.calculate(data), 6553640);
     }
@@ -64,7 +64,7 @@ TEST(RollingChecksum, TestMultipleByteInputs)
 
 TEST(RollingChecksum, TestSingleByteInput)
 {
-    RollingChecksum checksum(MODULO_FACTOR);
+    RollingChecksum checksum;
 
     {
         std::vector<unsigned char> data{0};

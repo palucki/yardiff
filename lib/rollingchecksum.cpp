@@ -1,7 +1,7 @@
 #include "rollingchecksum.h"
+#include "params.h"
 
-RollingChecksum::RollingChecksum(const int factor)
-    : m_factor(factor)
+RollingChecksum::RollingChecksum()
 {
 }
 
@@ -18,18 +18,18 @@ long long RollingChecksum::calculate(const std::vector<unsigned char> &data)
         m_r2 += (m_block_size - i) * data[i];
     }
 
-    m_r1 = m_r1 % m_factor;
-    m_r2 = m_r2 % m_factor;
-    m_r = m_r1 + m_factor * m_r2;
+    m_r1 = m_r1 % params::MODULO_FACTOR;
+    m_r2 = m_r2 % params::MODULO_FACTOR;
+    m_r = m_r1 + params::MODULO_FACTOR * m_r2;
 
     return m_r;
 }
 
 long long RollingChecksum::roll(const unsigned char outgoing, const unsigned char incoming)
 {
-    m_r1 = (m_r1 - outgoing + incoming) % m_factor;
-    m_r2 = (m_r2 - m_block_size * outgoing + m_r1) % m_factor;
-    m_r = m_r1 + m_factor * m_r2;
+    m_r1 = (m_r1 - outgoing + incoming) % params::MODULO_FACTOR;
+    m_r2 = (m_r2 - m_block_size * outgoing + m_r1) % params::MODULO_FACTOR;
+    m_r = m_r1 + params::MODULO_FACTOR * m_r2;
 
     return m_r;
 }

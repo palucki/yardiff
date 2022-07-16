@@ -11,7 +11,7 @@
 class RollingChecksum
 {
 public:
-    RollingChecksum(const int factor);
+    RollingChecksum();
 
     //! Recomputes the checksum for the whole new block of data.
     //! Updates the block_size property.
@@ -20,7 +20,6 @@ public:
     //! Recomputes the checksum discarding outgoing and including incoming bytes, returns computed checksum
     long long roll(const unsigned char outgoing, const unsigned char incoming);
 private:
-    const int m_factor;
     int m_block_size = 0;
 
     long long m_r = 0;

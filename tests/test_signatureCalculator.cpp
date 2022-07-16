@@ -12,7 +12,7 @@ const int MODULO_FACTOR = 1 << 16;
 TEST(SignatureCalculator, TestDisallowedBlockSizeDoesNotCalculate)
 {
     MockDataProvider data_provider{{}, 0};
-    SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+    SignatureCalculator calculator{data_provider};
     const auto signature = calculator.calculate();
     EXPECT_EQ(signature.empty(), true);
 }
@@ -20,7 +20,7 @@ TEST(SignatureCalculator, TestDisallowedBlockSizeDoesNotCalculate)
 TEST(SignatureCalculator, TestEmptyInputIsDiscarded)
 {
     MockDataProvider data_provider{{}, 1};
-    SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+    SignatureCalculator calculator{data_provider};
     const auto signature = calculator.calculate();
 
     EXPECT_EQ(signature.size(), 0);
@@ -30,7 +30,7 @@ TEST(SignatureCalculator, TestSingleByteInputDifferentAllowedBlockSizes)
 {
     {
         MockDataProvider data_provider{{0}, 1};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
 
         Signature expected_signature {
@@ -47,21 +47,21 @@ TEST(SignatureCalculator, TestSingleByteInputDifferentAllowedBlockSizes)
 
         {
             MockDataProvider data_provider{{100}, 1};
-            SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+            SignatureCalculator calculator{data_provider};
             const auto signature = calculator.calculate();
             EXPECT_EQ(signature, expected_signature);
         }
 
         {
             MockDataProvider data_provider{{100}, 2};
-            SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+            SignatureCalculator calculator{data_provider};
             const auto signature = calculator.calculate();
             EXPECT_EQ(signature, expected_signature);
         }
 
         {
             MockDataProvider data_provider{{100}, 600};
-            SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+            SignatureCalculator calculator{data_provider};
             const auto signature = calculator.calculate();
             EXPECT_EQ(signature, expected_signature);
         }
@@ -72,7 +72,7 @@ TEST(SignatureCalculator, TestRepeatedBlocksDoNotCreateNewEntries)
 {
     {
         MockDataProvider data_provider{{'a','b','b','a','c','a'}, 1};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
         Signature expected_signature {
             {6357089, {BlockData{StrongChecksum::calculate({'a'}), 0}}},
@@ -84,7 +84,7 @@ TEST(SignatureCalculator, TestRepeatedBlocksDoNotCreateNewEntries)
 
     {
         MockDataProvider data_provider{{'a','l','a','m','a','t','a','l','a','m','a','t','a'}, 3};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
 
         Signature expected_signature {
@@ -103,7 +103,7 @@ TEST(SignatureCalculator, TestTheSameBlockBetweenBlocksBoundaryWillBeTreatedAsDi
     {
         //here first "ab" is within block boundary, and the second one is between
         MockDataProvider data_provider{{'a','b','c','a','b', 'd'}, 2};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
 
         Signature expected_signature {
@@ -119,7 +119,7 @@ TEST(SignatureCalculator, TestBlockSizeGreaterThanInputSize)
 {
     {
         MockDataProvider data_provider{{'a','b','c','d','e','f'}, 10};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
 
         Signature expected_signature {
@@ -133,7 +133,7 @@ TEST(SignatureCalculator, TestWhenBlockSizeSmallerThanInputSizeAllBytesAreProces
 {
     {
         MockDataProvider data_provider{{'a','b','c','d','e','f'}, 5};
-        SignatureCalculator calculator{data_provider, MODULO_FACTOR};
+        SignatureCalculator calculator{data_provider};
         const auto signature = calculator.calculate();
 
         Signature expected_signature {

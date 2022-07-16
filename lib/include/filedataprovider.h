@@ -11,7 +11,7 @@
 class FileDataProvider : public DataProvider
 {
 public:
-    FileDataProvider(std::ifstream& file_handle, int buffer_size);
+    FileDataProvider(std::ifstream& file_handle, int block_size);
     bool readData() override;
 
     void setReadPosition(long position_from_start) override;

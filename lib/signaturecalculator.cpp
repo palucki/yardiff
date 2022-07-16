@@ -5,9 +5,8 @@
 #include "rollingchecksum.h"
 #include "strongchecksum.h"
 
-SignatureCalculator::SignatureCalculator(DataProvider &data_provider, const int modulo_factor) :
-    m_data_provider(data_provider),
-    m_modulo_factor(modulo_factor)
+SignatureCalculator::SignatureCalculator(DataProvider &data_provider) :
+    m_data_provider(data_provider)
 {
 }
 
@@ -22,7 +21,7 @@ const Signature& SignatureCalculator::calculate()
             continue;
         }
 
-        RollingChecksum r{m_modulo_factor};
+        RollingChecksum r;
         const auto strong_signature = StrongChecksum::calculate(m_data_provider.data());
         const auto fast_signature = r.calculate(m_data_provider.data());
 

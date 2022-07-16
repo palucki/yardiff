@@ -15,3 +15,6 @@ target_link_libraries(test_checksums PRIVATE GTest::GTest yardifflib)
 
 add_executable(test_signature_calculator test_signatureCalculator.cpp)
 target_link_libraries(test_signature_calculator PRIVATE GTest::GTest yardifflib)
+
+add_executable(test_delta_calculator test_deltaCalculator.cpp)
+target_link_libraries(test_delta_calculator PRIVATE GTest::GTest yardifflib)

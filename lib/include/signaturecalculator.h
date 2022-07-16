@@ -6,11 +6,10 @@
 class SignatureCalculator
 {
 public:
-    SignatureCalculator(DataProvider &data_provider, const int modulo_factor);
+    SignatureCalculator(DataProvider &data_provider);
     const Signature& calculate();
 private:
     DataProvider& m_data_provider;
-    const int m_modulo_factor;
     Signature m_signature;
 };
 

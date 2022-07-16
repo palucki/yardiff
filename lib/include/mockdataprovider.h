@@ -59,9 +59,9 @@ public:
         return true;
     }
 
-    void setReadPosition(long position_from_start)
+    void setReadPosition(long position_from_start) override
     {
-
+        m_read_position = position_from_start;
     }
 
     std::vector<unsigned char>& data() override

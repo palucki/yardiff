@@ -1,11 +1,11 @@
-#include "include/filedataprovider.h"
+#include "filedataprovider.h"
 
 #include <iostream>
 
-FileDataProvider::FileDataProvider(std::ifstream &file_handle, int buffer_size)
+FileDataProvider::FileDataProvider(std::ifstream &file_handle, int block_size)
     : m_file_handle(file_handle)
 {
-    m_buffer.resize(buffer_size);
+    m_buffer.resize(block_size);
     m_file_handle.clear();
     m_file_handle.seekg(0, std::ios::beg);
 }
