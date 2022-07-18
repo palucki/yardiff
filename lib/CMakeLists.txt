@@ -10,7 +10,8 @@ set(HEADERS
     include/signaturecalculator.h
     include/signature.h
     include/deltacalculator.h
-    include/params.h)
+    include/params.h
+    include/delta.h)
 
 set(SOURCES
     rollingchecksum.cpp
