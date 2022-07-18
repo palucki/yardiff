@@ -25,17 +25,13 @@ public:
 
         for(int i = 0; i < m_buffer.size(); ++i)
         {
-            std::cout << "Mock provider i = " << i << " block position " << m_read_position << '\n';
-
             if(m_read_position < m_input_data.size())
             {
-                std::cout << "read ok\n";
                 //read block of data from prepared input
                 m_buffer[i] = m_input_data[m_read_position];
             }
             else
             {
-                std::cout << "resizing to " << i << "\n";
                 m_buffer.resize(i);
 
                 if(m_buffer.size() == 0)

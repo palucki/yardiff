@@ -15,16 +15,15 @@ bool FileDataProvider::readData()
     m_file_handle.read((char*)m_buffer.data(), m_buffer.size());
 
     std::streamsize succesfully_read_bytes = m_file_handle.gcount();
-    std::cout << "succesfully_read_bytes " << succesfully_read_bytes << "\n";
 
     if(succesfully_read_bytes == 0)
     {
-        std::cout << "END OF THE GAME\n";
+        //no more data in buffer
         return false;
     }
     else if(succesfully_read_bytes < m_buffer.size())
     {
-        std::cout << "last chunk, resizing buffer\n";
+        //last chunk, smaller than block size
         m_buffer.resize(succesfully_read_bytes);
     }
 
