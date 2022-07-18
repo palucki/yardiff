@@ -13,14 +13,8 @@ SignatureCalculator::SignatureCalculator(DataProvider &data_provider) :
 const Signature& SignatureCalculator::calculate()
 {
     auto block_index = 0;
-    while(!m_data_provider.finished())
+    while(m_data_provider.readData())
     {
-        if(!m_data_provider.readData())
-        {
-            std::cout << "No more data in buffer\n";
-            continue;
-        }
-
         RollingChecksum r;
         const auto strong_signature = StrongChecksum::calculate(m_data_provider.data());
         const auto fast_signature = r.calculate(m_data_provider.data());

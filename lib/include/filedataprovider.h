@@ -18,8 +18,6 @@ public:
 
     std::vector<unsigned char>& data() override;
 
-    bool finished() override;
-
 private:
     std::ifstream& m_file_handle;
     std::vector<unsigned char> m_buffer;

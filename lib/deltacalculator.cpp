@@ -20,7 +20,6 @@ Delta DeltaCalculator::calculate()
     {
         while(m_data_provider.readData())
         {
-//            m_data_provider.readData();
             for(const auto c : m_data_provider.data())
             {
                 delta += c;
@@ -40,11 +39,6 @@ Delta DeltaCalculator::calculate()
     while(m_data_provider.readData())
     {
         std::cout << "Reading block of bytes starting from " << block_start_pos << '\n';
-//        if(!m_data_provider.readData())
-//        {
-//            std::cout << "No more data in buffer\n";
-//            break;
-//        }
 
         const auto& buffer = m_data_provider.data();
 

@@ -41,8 +41,3 @@ std::vector<unsigned char> &FileDataProvider::data()
 {
     return m_buffer;
 }
-
-bool FileDataProvider::finished()
-{
-    return m_file_handle.eof();
-}

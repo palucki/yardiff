@@ -20,7 +20,6 @@ public:
     {
         if(m_buffer.size() == 0)
         {
-            m_finished = true;
             return false;
         }
 
@@ -38,7 +37,6 @@ public:
             {
                 std::cout << "resizing to " << i << "\n";
                 m_buffer.resize(i);
-                m_finished = true;
 
                 if(m_buffer.size() == 0)
                 {
@@ -49,11 +47,6 @@ public:
             }
 
             ++m_read_position;
-        }
-
-        if(m_buffer.size() == m_input_data.size())
-        {
-            m_finished = true;
         }
 
         return true;
@@ -69,13 +62,7 @@ public:
         return m_buffer;
     }
 
-    bool finished() override
-    {
-        return m_finished;
-    }
-
     std::vector<unsigned char> m_input_data;
     std::vector<unsigned char> m_buffer;
     int m_read_position = 0;
-    bool m_finished = false;
 };
