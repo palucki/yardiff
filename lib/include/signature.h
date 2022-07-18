@@ -19,4 +19,7 @@ struct BlockData
     }
 };
 
+//temporary solutions, good enough for tests purposes
+//for production usage needs to be able to easily get the BlockData by m_block_index
+//and contain another lookup level (16 bit checksum)
 using Signature = std::unordered_map<unsigned int, BlockData>;
