@@ -8,6 +8,8 @@ class DeltaCalculator
 {
 public:
     DeltaCalculator(DataProvider &data_provider, const Signature& signature);
+
+    //! computes delta based on the given signature and updated data from provider.
     Delta calculate();
 private:
     DataProvider& m_data_provider;
