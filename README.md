@@ -5,6 +5,7 @@ Rolling hash based file diffing algorithm. When comparing original and an update
 - have been added or modified and thus would need to be synchronized
 
 -----
-
 Usage:
+```
     yardiff BASE_FILE UPDATED_FILE BLOCK_SIZE
+```
