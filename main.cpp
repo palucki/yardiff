@@ -1,14 +1,17 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <unordered_map>
 
-#include "params.h"
-#include "strongchecksum.h"
-#include "rollingchecksum.h"
 #include "filedataprovider.h"
 #include "signaturecalculator.h"
 #include "deltacalculator.h"
+
+/*!
+ * This application demonstrates an implementation of rsync algorithm for rolling hash based diff tool.
+ * This algorithm make use of 2 checksums (aka signatures) to be as fast, efficient and accurate as possible.
+ * The operation of generating a diff is described in the following papers:
+ * https://rsync.samba.org/tech_report
+ * https://www.samba.org/~tridge/phd_thesis.pdf
+ */
 
 int main(int argc, char** argv)
 {

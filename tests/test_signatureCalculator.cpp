@@ -4,11 +4,6 @@
 #include "strongchecksum.h"
 #include "mockdataprovider.h"
 
-namespace
-{
-const int MODULO_FACTOR = 1 << 16;
-}
-
 TEST(SignatureCalculator, TestDisallowedBlockSizeDoesNotCalculate)
 {
     MockDataProvider data_provider{{}, 0};

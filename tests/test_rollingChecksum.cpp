@@ -2,11 +2,6 @@
 
 #include "rollingchecksum.h"
 
-namespace
-{
-const int MODULO_FACTOR = 1 << 16;
-}
-
 TEST(RollingChecksum, TestBiggerNumbers)
 {
     {

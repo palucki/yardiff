@@ -1,7 +1,5 @@
 #include "filedataprovider.h"
 
-#include <iostream>
-
 FileDataProvider::FileDataProvider(std::ifstream &file_handle, int block_size)
     : m_file_handle(file_handle)
 {

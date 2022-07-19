@@ -7,10 +7,7 @@ DeltaCalculator::DeltaCalculator(DataProvider &data_provider, const Signature &s
     m_data_provider(data_provider),
     m_signature(signature)
 {
-
 }
-
-#include <iostream>
 
 Delta DeltaCalculator::calculate()
 {

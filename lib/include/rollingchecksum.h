@@ -11,8 +11,6 @@
 class RollingChecksum
 {
 public:
-    RollingChecksum();
-
     //! Recomputes the checksum for the whole new block of data.
     //! Updates the block_size property.
     long long calculate(const std::vector<unsigned char>& data);

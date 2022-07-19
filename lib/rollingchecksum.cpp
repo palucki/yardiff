@@ -1,10 +1,6 @@
 #include "rollingchecksum.h"
 #include "params.h"
 
-RollingChecksum::RollingChecksum()
-{
-}
-
 long long RollingChecksum::calculate(const std::vector<unsigned char> &data)
 {
     m_r = 0;
